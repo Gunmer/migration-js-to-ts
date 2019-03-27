@@ -2,26 +2,26 @@
 
 const userRepository = require('../repositories/user_repository');
 
-let getUsers = (req, res) => {
-    const users = userRepository.findAll();
+let getUsers = async (req, res) => {
+    const users = await userRepository.findAll();
     res.send(users);
 };
 
-let getUser = (req, res) => {
+let getUser = async (req, res) => {
     const id = req.params.id;
-    let user = userRepository.findById(id);
+    let user = await userRepository.findById(id);
     res.send(user);
 };
 
-let saveUser = (req, res) => {
+let saveUser = async (req, res) => {
     const user = req.body;
-    let newUser = userRepository.save(user);
+    let newUser = await userRepository.save(user);
     res.send(newUser);
 };
 
-let deleteUser = (req, res) => {
+let deleteUser = async (req, res) => {
     const id = req.params.id;
-    userRepository.deleteById(id);
+    await userRepository.deleteById(id);
     res.status(201).send();
 };
 

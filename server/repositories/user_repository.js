@@ -1,34 +1,32 @@
 'use strict';
 
-let users = [
-    { id: 1, name: 'user_1'},
-    { id: 2, name: 'user_2'},
-    { id: 3, name: 'user_3'},
-    { id: 4, name: 'user_4'},
-];
+const User = require('../model/user');
 
-const findAll = () => {
-  return users;
+const findAll = async () => {
+    return await User.find().exec()
 };
 
-const findById = (id) => {
-    return users.find(it => it.id === Number(id));
+const findById = async (id) => {
+    return await User.find({id: id}).exec();
 };
 
-const save = (user) => {
-    user.id = users.slice(-1)[0].id + 1;
-    users.push(user);
-    return user;
+const save = async (user) => {
+    let allUsers = await findAll();
+    let newUser = new User({
+        id: allUsers.length,
+        name: user.name
+    });
+
+    return await newUser.save();
 };
 
-const deleteById = (id) => {
-    let index = users.findIndex(it => it.id === Number(id));
-    users.splice(index, 1);
+const deleteById = async (id) => {
+    await User.findOneAndRemove({id: id})
 };
 
 module.exports = {
-  findAll,
-  findById,
-  save,
-  deleteById
+    findAll,
+    findById,
+    save,
+    deleteById
 };
