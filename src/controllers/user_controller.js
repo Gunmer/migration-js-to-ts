@@ -1,6 +1,9 @@
 'use strict';
 
-const userRepository = require('../repositories/user_repository');
+//const userRepository = require('../repositories/user_repository');
+const UserRepositoryModule = require('../repositories/user.repository');
+
+let userRepository = new UserRepositoryModule.UserRepository();
 
 let getUsers = async (req, res) => {
     const users = await userRepository.findAll();

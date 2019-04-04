@@ -168,4 +168,6 @@ typings/
 # Custom
 **/tables
 
+dist/
+
 # End of https://www.gitignore.io/api/node,intellij+all

@@ -7,7 +7,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(require('./routes/index'));
+app.use(require('./routes'));
 
 const PORT = 8080;
 

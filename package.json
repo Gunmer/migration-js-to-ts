@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "node $NODE_DEBUG_OPTION server/server"
+    "build": "tsc --build tsconfig.json",
+    "start:dev": "npm run build && node $NODE_DEBUG_OPTION dist/server"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
-    "mongoose": "^5.4.20"
+    "mongoose": "^5.4.20",
+    "typescript": "^3.4.1"
   }
 }
