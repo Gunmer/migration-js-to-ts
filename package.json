@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc --build tsconfig.json",
     "start": "ts-node src/server",
-    "start:dev": "npm run build && node $NODE_DEBUG_OPTION dist/server"
+    "start:dev": "npm run build && node $NODE_DEBUG_OPTION dist/server",
+    "playground": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "mongoose": "^5.4.20",
+    "nodemon": "^1.18.11",
     "ts-node": "^8.1.0",
     "typescript": "^3.4.1"
   }
