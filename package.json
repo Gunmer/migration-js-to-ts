@@ -7,7 +7,8 @@
     "build": "tsc --build tsconfig.json",
     "start": "ts-node src/server",
     "start:dev": "npm run build && node $NODE_DEBUG_OPTION dist/server",
-    "playground": "nodemon"
+    "playground": "nodemon",
+    "playground:dev": "ts-node $NODE_DEBUG_OPTION src/playground"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/Gunmer/NodeLab#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",

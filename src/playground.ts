@@ -1,4 +1,5 @@
 import {Task} from "./playground/task";
+import Axios, {AxiosInstance, AxiosPromise} from "axios";
 
 class Playground {
 
@@ -10,26 +11,41 @@ class Playground {
     private async executeParallel() {
         let t0 = Date.now();
 
-        let promises = this.buildTask().map(t => t.execute());
-        let [result1, result2, result3, result4 ] = await Promise.all(promises);
+        let http = Axios.create({});
+        let promise1 = http.get(`https://jsonplaceholder.typicode.com/posts/1`);
+        let promise2 = http.get(`https://jsonplaceholder.typicode.com/posts/2`);
+        let promise3 = http.get(`https://jsonplaceholder.typicode.com/posts/3`);
+        let promise4 = http.get(`https://jsonplaceholder.typicode.com/posts/4`);
+
+        let [response1] = await Promise.all([promise1, promise2, promise3, promise4]);
 
         let t1 = Date.now();
         console.log(`Execute in parallel: ${t1 - t0} milliseconds`);
-        console.log(`Results: ${JSON.stringify([result1, result2, result3, result4])}`);
+        console.log(`Results: ${JSON.stringify([response1.data])}`);
     }
 
     private async executeSerial() {
         let t0 = Date.now();
 
-        let results = [];
-        for(let task of this.buildTask()) {
-            let result = await task.execute();
-            results.push(result);
-        }
+        let http = Axios.create({});
+        let response1 = await http.get(`https://jsonplaceholder.typicode.com/posts/1`);
+        let response2 = await http.get(`https://jsonplaceholder.typicode.com/posts/2`);
+        let response3 = await http.get(`https://jsonplaceholder.typicode.com/posts/3`);
+        let response4 = await http.get(`https://jsonplaceholder.typicode.com/posts/4`);
 
         let t1 = Date.now();
         console.log(`Execute in serial: ${t1 - t0} milliseconds`);
-        console.log(`Results: ${JSON.stringify(results)}`);
+        console.log(`Results: ${JSON.stringify(response1.data)}`);
+    }
+
+    private buildPromises(http: AxiosInstance) {
+        let promises: AxiosPromise<any>[] = [];
+        for(let index of Array.from(Array(10).keys())) {
+            let promise = http.get(`https://jsonplaceholder.typicode.com/posts/${index + 1}`);
+            promises.push(promise);
+        }
+
+        return promises;
     }
 
     private buildTask() {
